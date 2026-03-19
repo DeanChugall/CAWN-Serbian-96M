@@ -1,0 +1,89 @@
+#################################################
+# Project metadata
+#################################################
+
+[project]
+name = "cawn_serbian"
+version = "0.0.1"
+description = "Serbian Inference Continuous Acoustic Wave Network (CAWN)"
+authors = [
+    { name = "Dean Chugall", email = "info@dejan.pro" }
+]
+maintainers = [
+   { name = "Dean Chugall", email = "info@dejan.pro" }
+]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+package-mode = true
+
+[tool.poetry.dependencies]
+python = "^3.12"
+python-dotenv = "^1.2.2"
+loguru = "^0.7.3"
+
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+pre-commit = "^4.5.1"
+ruff = "^0.15.4"
+
+
+
+[project.urls]
+Repository = "https://github.com/DeanChugall/CAWN-Serbian-96M"
+Documentation = "https://cawnai.com/docs"
+Homepage = "https://cawnai.com"
+
+#################################################
+# Ruff config
+#################################################
+
+[tool.ruff]
+
+line-length = 160
+
+# Enable Pyflakes `E` and `F` codes by default
+lint.select = ["E", "F", "I001", "PT", "UP", "B", "SIM", "I", "C4"]
+lint.ignore = ["E501", "F811", "SIM102", "SIM"]
+respect-gitignore = true
+
+lint.per-file-ignores = {}
+
+# Allow unused variables when underscore-prefixed
+lint.dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Python 3.12
+target-version = "py312"
+
+[tool.ruff.lint.mccabe]
+# Unlike Flake8, default to a complexity level of 10
+max-complexity = 10
+
+#################################################
+# Pytest config
+#################################################
+
+[tool.pytest.ini_options]
+minversion = "8.3.3"
+addopts = "-s -p no:warnings"
+pythonpath = ["ai2you"]
+python_files = [
+    "tests.py",
+    "test_*.py",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:jupyter_client.connect",
+]
+
+#################################################
+# Setuptools config (for editable installs)
+#################################################
+# Building package
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ai2you`*"]
